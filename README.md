@@ -29,9 +29,9 @@ A pasta `install/` contém scripts shell para instalação primária e secundár
 sudo apt update
 sudo apt install -y git
 cd /opt # ou outro diretório de sua preferência
-sudo git clone https://github.com/marcuscabrera/atendechatinstall
-sudo chmod -R 777 atendechatinstall
-cd atendechatinstall
+sudo git clone https://github.com/marcuscabrera/atendechat2024
+sudo chmod -R 777 atendechat2024/install
+cd atendechat2024/install
 sudo ./install_primaria
 ```
 

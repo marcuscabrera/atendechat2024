@@ -147,6 +147,14 @@ EOF
 #   None
 #######################################
 frontend_nginx_setup() {
+  if ! should_install_nginx; then
+    print_banner
+    printf "${WHITE} 💻 Pulando configuração do nginx (frontend desabilitado)...${GRAY_LIGHT}"
+    printf "\n\n"
+    sleep 2
+    return
+  fi
+
   print_banner
   printf "${WHITE} 💻 Configurando nginx (frontend)...${GRAY_LIGHT}"
   printf "\n\n"

@@ -3,6 +3,26 @@
 # system management
 
 #######################################
+# checks whether nginx related steps
+# should run based on user preference.
+# Arguments:
+#   None
+#######################################
+should_install_nginx() {
+  local choice="${install_nginx:-s}"
+  choice=$(echo "${choice}" | tr '[:upper:]' '[:lower:]')
+
+  case "${choice}" in
+    s|sim|y|yes)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+#######################################
 # creates user
 # Arguments:
 #   None
@@ -437,6 +457,14 @@ EOF
 #   None
 #######################################
 system_certbot_install() {
+  if ! should_install_nginx; then
+    print_banner
+    printf "${WHITE} 💻 Pulando instalação do certbot (nginx desabilitado)...${GRAY_LIGHT}"
+    printf "\n\n"
+    sleep 2
+    return
+  fi
+
   print_banner
   printf "${WHITE} 💻 Instalando certbot...${GRAY_LIGHT}"
   printf "\n\n"
@@ -458,6 +486,14 @@ EOF
 #   None
 #######################################
 system_nginx_install() {
+  if ! should_install_nginx; then
+    print_banner
+    printf "${WHITE} 💻 Pulando instalação do nginx conforme escolha do usuário...${GRAY_LIGHT}"
+    printf "\n\n"
+    sleep 2
+    return
+  fi
+
   print_banner
   printf "${WHITE} 💻 Instalando nginx...${GRAY_LIGHT}"
   printf "\n\n"
@@ -478,6 +514,14 @@ EOF
 #   None
 #######################################
 system_nginx_restart() {
+  if ! should_install_nginx; then
+    print_banner
+    printf "${WHITE} 💻 Pulando reinício do nginx (não instalado)...${GRAY_LIGHT}"
+    printf "\n\n"
+    sleep 2
+    return
+  fi
+
   print_banner
   printf "${WHITE} 💻 reiniciando nginx...${GRAY_LIGHT}"
   printf "\n\n"
@@ -497,6 +541,14 @@ EOF
 #   None
 #######################################
 system_nginx_conf() {
+  if ! should_install_nginx; then
+    print_banner
+    printf "${WHITE} 💻 Pulando configuração do nginx (desativado)...${GRAY_LIGHT}"
+    printf "\n\n"
+    sleep 2
+    return
+  fi
+
   print_banner
   printf "${WHITE} 💻 configurando nginx...${GRAY_LIGHT}"
   printf "\n\n"
@@ -520,6 +572,14 @@ EOF
 #   None
 #######################################
 system_certbot_setup() {
+  if ! should_install_nginx; then
+    print_banner
+    printf "${WHITE} 💻 Pulando configuração do certbot (nginx desabilitado)...${GRAY_LIGHT}"
+    printf "\n\n"
+    sleep 2
+    return
+  fi
+
   print_banner
   printf "${WHITE} 💻 Configurando certbot...${GRAY_LIGHT}"
   printf "\n\n"

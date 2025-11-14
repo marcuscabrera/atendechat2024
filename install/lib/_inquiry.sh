@@ -49,15 +49,29 @@ get_frontend_url() {
 }
 
 get_backend_url() {
-  
+
   print_banner
   printf "${WHITE} 💻 Digite o domínio do BACKEND/API para a ${instancia_add}:${GRAY_LIGHT}"
   printf "\n\n"
   read -p "> " backend_url
 }
 
+get_install_nginx() {
+
+  print_banner
+  printf "${WHITE} 💻 Deseja instalar e configurar o Nginx para proxy e HTTPS? (S/n)${GRAY_LIGHT}"
+  printf "\n\n"
+  read -p "> " install_nginx
+
+  install_nginx=$(echo "${install_nginx}" | tr '[:upper:]' '[:lower:]')
+
+  if [[ -z "${install_nginx}" ]]; then
+    install_nginx="s"
+  fi
+}
+
 get_frontend_port() {
-  
+
   print_banner
   printf "${WHITE} 💻 Digite a porta do FRONTEND para a ${instancia_add}; Ex: 3000 A 3999 ${GRAY_LIGHT}"
   printf "\n\n"
@@ -163,6 +177,7 @@ get_urls() {
   get_max_user
   get_frontend_url
   get_backend_url
+  get_install_nginx
   get_frontend_port
   get_backend_port
   get_redis_port

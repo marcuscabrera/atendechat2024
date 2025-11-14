@@ -224,6 +224,14 @@ EOF
 #   None
 #######################################
 backend_nginx_setup() {
+  if ! should_install_nginx; then
+    print_banner
+    printf "${WHITE} 💻 Pulando configuração do nginx (backend desabilitado)...${GRAY_LIGHT}"
+    printf "\n\n"
+    sleep 2
+    return
+  fi
+
   print_banner
   printf "${WHITE} 💻 Configurando nginx (backend)...${GRAY_LIGHT}"
   printf "\n\n"
